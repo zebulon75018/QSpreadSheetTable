@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+
 class QSpreadSheetTable : public QWidget
 {
     Q_OBJECT

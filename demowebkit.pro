@@ -26,8 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    qspreadsheettable.cpp
+    qspreadsheettable.cpp \
+    mywebpage.cpp
 
 HEADERS += \
         mainwindow.h \
-    qspreadsheettable.h
+    qspreadsheettable.h \
+    mywebpage.h
