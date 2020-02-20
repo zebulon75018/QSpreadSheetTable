@@ -4,7 +4,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtCore/QUrl>
 
-
+#define  QPSREADSHEET 1
 
 QSpreadSheetTable::QSpreadSheetTable(QWidget *parent) : QWidget(parent)
 {
@@ -14,8 +14,16 @@ QSpreadSheetTable::QSpreadSheetTable(QWidget *parent) : QWidget(parent)
    QVBoxLayout *layout = new QVBoxLayout(this);
    this->setLayout(layout);
    layout->addWidget(webView);
-  // webView->setUrl(QUrl("https://bossanova.uk/jexcel/v2/"));
+   //webView->setUrl(QUrl("https://bossanova.uk/jexcel/v2/"));
    webView->setPage(p);
+    QWebSettings* settings = webView->settings();
+
+    //settings->ssetAttribute(QWebSettings::AllowRunningInsecureContent, true);
+    settings->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    settings->setAttribute(QWebSettings::LocalContentCanAccessFileUrls, true);
+    settings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);
+
+#ifdef QPSREADSHEET
    webView->setHtml("<html>\
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>\
                     <script src='https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.min.js'></script>\
@@ -31,6 +39,9 @@ QSpreadSheetTable::QSpreadSheetTable(QWidget *parent) : QWidget(parent)
                     $('#my').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });\
                     </script>\
                     </html>");
+#else
+   webView->setUrl(QUrl("http://localhost:5000"));
+#endif
 }
 
 void	QSpreadSheetTable::setColumnCount(int columns)
